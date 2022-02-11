@@ -17,7 +17,14 @@ public class GroceryStore
      *  Precondition: min > 0 */
     public ArrayList<Integer> getReorderList(int min)
     {
-        /* to be implemented in part (a) */
+        ArrayList<Integer> intList = new ArrayList<>();
+        for (int i = 0; i < productsStocked.length; i++) {
+            Product o =  productsStocked[i];
+            if (o.getQuantity() <= min){
+                intList.add(i);
+            }
+        }
+        return intList;
     }
 
     /** Returns true if all products named in shoppingList are available for purchase
@@ -27,6 +34,25 @@ public class GroceryStore
      */
     public boolean checkAvailability(ArrayList<String> shoppingList)
     {
-        /* to be implemented in part (b) */
+        for (String s : shoppingList) {
+            for (Product o : productsStocked) {
+                if (o.getName().equals(s)) {
+                    if (o.getQuantity() <= 0) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public ArrayList<Product> oversized(double weight){
+        ArrayList<Product> list = new ArrayList<>();
+        for (Product o : productsStocked) {
+            if (o.getWeight() > weight) {
+                list.add(o);
+            }
+        }
+        return list;
     }
 }
